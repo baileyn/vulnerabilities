@@ -1,8 +1,21 @@
 services:
   web:
-    image: php:7-apache
+    build: ../php
     volumes:
       - ./html:/var/www/html
     ports:
       - 8888:80
+    restart: always
+
+  phpMyAdmin:
+    image: phpmyadmin/phpmyadmin:5.2
+    ports:
+      - 9999:80
+    restart: always
+
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=password # Security is our #1 priority.
+      - MYSQL_DATABASE=vulns
     restart: always
